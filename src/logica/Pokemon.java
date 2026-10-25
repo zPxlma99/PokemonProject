@@ -10,7 +10,7 @@ public abstract class Pokemon extends Carta{
     private int ps;
     private int costoDeRetirada;
     private ArrayList<Ataque>ataques;
-    private boolean isX;
+    private boolean isEX;
     
 
 
