@@ -7,7 +7,7 @@ import logica.TipoCarta;
 public class Moltres extends Pokemon {
     public Moltres () {
         super("Moltres", TipoCarta.POKEMON, 30, 
-        TipoPokemon.FUEGO, 130,  true);
+        TipoPokemon.FUEGO, 130,  true, false);
     } @Override
     public void atacar(Pokemon objetivo){
         int e=this.getEnergiaAcumulada();

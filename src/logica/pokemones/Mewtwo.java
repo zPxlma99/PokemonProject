@@ -6,7 +6,7 @@ import logica.TipoCarta;
 
 public class Mewtwo extends Pokemon {
     public Mewtwo() {super("Mewtwo", 
-    TipoCarta.POKEMON, 50, TipoPokemon.PSIQUICO, 150, true);}
+    TipoCarta.POKEMON, 50, TipoPokemon.PSIQUICO, 150, true, false);}
     
     @Override
     public void atacar(Pokemon objetivo){

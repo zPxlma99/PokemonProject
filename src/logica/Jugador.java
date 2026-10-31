@@ -4,10 +4,10 @@ import java.util.ArrayList;
 public class Jugador {
     private String nombre;
     private int puntos;
-    private ArrayList<Carta> cartas;
     private ArrayList<Carta> mazo = new ArrayList<>();
     private ArrayList<Carta> mano = new ArrayList<>();
     private boolean isCurrentPlayer;
+    
     public String getNombre() {
         return nombre;
     }
@@ -19,12 +19,6 @@ public class Jugador {
     }
     public void setPuntos(int puntos) {
         this.puntos = puntos;
-    }
-    public ArrayList<Carta> getCartas() {
-        return cartas;
-    }
-    public void setCartas(ArrayList<Carta> cartas) {
-        this.cartas = cartas;
     }
     public ArrayList<Carta> getMazo() {
         return mazo;

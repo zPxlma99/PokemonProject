@@ -7,7 +7,7 @@ import logica.TipoCarta;
 public class Magikarp extends Pokemon {
     public Magikarp () {
         super("Magikarp", TipoCarta.POKEMON, 10, 
-        TipoPokemon.AGUA, 30, false);
+        TipoPokemon.AGUA, 30, false, false);
     }
     @Override
     public void atacar(Pokemon objetivo){

@@ -7,7 +7,7 @@ import logica.TipoCarta;
 public class Articuno extends Pokemon {
     public Articuno () {
         super("Articuno", TipoCarta.POKEMON, 30, 
-        TipoPokemon.AGUA, 130, true);}
+        TipoPokemon.AGUA, 130, true, false);}
     @Override
     public void atacar(Pokemon objetivo){
         int e=this.getEnergiaAcumulada();

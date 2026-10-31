@@ -7,7 +7,7 @@ import logica.TipoCarta;
 public class Snorlax extends Pokemon {
     public Snorlax () {
         super("Snorlax", TipoCarta.POKEMON, 100, 
-        TipoPokemon.INCOLORO, 150,  false);
+        TipoPokemon.INCOLORO, 150,  false, false);
     }
     @Override
     public void atacar(Pokemon objetivo){

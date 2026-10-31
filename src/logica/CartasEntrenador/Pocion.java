@@ -6,8 +6,7 @@ import logica.Pokemon;
 
 public class Pocion extends Carta {
 
-    public Pocion() {
-        super("Pocion", TipoCarta.ENTRENADOR);
+    public Pocion() {super("Pocion", TipoCarta.ENTRENADOR);
     }
     public void usar(Pokemon objetivo, String nombrePokemon){
     int newps=objetivo.getPs()+20;

@@ -7,7 +7,7 @@ import logica.TipoCarta;
 public class Zapdos extends Pokemon {
     public Zapdos () {
         super("Zapdos", TipoCarta.POKEMON, 30, 
-        TipoPokemon.ELECTRICO, 130,true);
+        TipoPokemon.ELECTRICO, 130,true, false);
     } @Override
     public void atacar(Pokemon objetivo){
         int e=this.getEnergiaAcumulada();
