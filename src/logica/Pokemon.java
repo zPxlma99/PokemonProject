@@ -1,17 +1,16 @@
 package logica;
 
 
-
-
 public abstract class Pokemon extends Carta{
 //constructor
-    public Pokemon(String nombre, TipoCarta tipoCarta, int danioBase, TipoPokemon tipo, int ps, boolean isEX) 
+    public Pokemon(String nombre, TipoCarta tipoCarta, int danioBase, TipoPokemon tipo, int ps, boolean isEX, boolean isActive) 
     {
     super(nombre, tipoCarta);{
         this.danioBase = danioBase;
         this.tipo = tipo;
         this.ps = ps;
         this.isEX = isEX;
+        this.isActive = isActive;
     }
 }
 
@@ -21,8 +20,26 @@ public abstract class Pokemon extends Carta{
     protected  int ps;
     protected boolean isEX;
     protected int EnergiaAcumulada;
+    protected boolean isActive;
+    protected boolean turboVelocidadUsada=false;
 
-//set y get
+    public boolean isTurboVelocidadUsada() {
+        return turboVelocidadUsada;
+    }
+
+    public void setTurboVelocidadUsada(boolean turboVelocidadUsada) {
+        this.turboVelocidadUsada = turboVelocidadUsada;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    //set y get
     public TipoPokemon getTipoP() {
         return tipo;
     }
@@ -57,17 +74,21 @@ public abstract class Pokemon extends Carta{
 //metodo abstrato
 
     public abstract void atacar(Pokemon objetivo);
+
+//METODO RETIRADA
+    
     public boolean retirada(){
         if(this.isEX()){
-            if(this.getEnergiaAcumulada()>=3){
-                this.setEnergiaAcumulada(this.getEnergiaAcumulada()-3);
+
+            if(this.getEnergiaAcumulada()>=(this.turboVelocidadUsada? 2 : 3)){
+                this.setEnergiaAcumulada(this.getEnergiaAcumulada()-(this.turboVelocidadUsada? 2 : 3));
                 return true;
             }else{
                 return false;
             }
         }else{
-            if(this.getEnergiaAcumulada()>=1){
-                this.setEnergiaAcumulada(this.getEnergiaAcumulada()-1);
+            if(this.getEnergiaAcumulada()>=(this.turboVelocidadUsada? 0 : 1)){
+                this.setEnergiaAcumulada(this.getEnergiaAcumulada()-(this.turboVelocidadUsada? 0 : 1));
                 return true;
             }else{
                 return false;
