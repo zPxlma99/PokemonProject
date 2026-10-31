@@ -7,10 +7,14 @@ import logica.TipoCarta;
 public class Jigglypuff extends Pokemon {
     public Jigglypuff() {
         super("Jigglypuff", TipoCarta.POKEMON, 20, 
-        TipoPokemon.INCOLORO, 70, 2, false);
+        TipoPokemon.INCOLORO, 70, false);
     }
     @Override
-    public void atacar(Pokemon objetivo) {
-        
-    }
+    public void atacar(Pokemon objetivo){
+        int e=this.getEnergiaAcumulada();
+        if(e>=1) {  
+                objetivo.setPs(objetivo.getPs()-danioBase);
+            }
+        }
+    
 }
