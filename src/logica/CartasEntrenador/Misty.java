@@ -8,6 +8,8 @@ public class Misty extends Carta {
     private boolean isSupport = true;
     private boolean isActivated;
     
+    public Misty() {super("Misty", TipoCarta.ENTRENADOR);
+    }
     public void setActivated(boolean isActivated) {
         this.isActivated = isActivated;
     }
