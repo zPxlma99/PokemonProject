@@ -6,9 +6,8 @@ import logica.Carta;
 import logica.TipoCarta;
 import logica.Jugador;
 
-public class InvestProfe extends Carta {
-    private boolean isSupport = true;
-    private boolean isActivated;
+public class InvestProfe extends CartaEntrenador {
+   
     public boolean isSupport() {
         return isSupport;
     }

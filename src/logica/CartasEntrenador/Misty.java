@@ -28,7 +28,7 @@ public class Misty extends Carta {
         this.isActivated = isActivated;
     }
 
-    public void use(Pokemon objetivo, String nombrePokemon) {
+    public void ActivarCarta(Pokemon objetivo, String nombrePokemon) {
         //VALIDAR SI HAY UN PROFESOR ACTIVO EN EL MISMO TURNO QUE SE INVOCA LA MISMA.
             if (objetivo.getTipoP() == TipoPokemon.AGUA) {
                 this.isActivated = true;
