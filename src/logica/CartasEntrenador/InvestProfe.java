@@ -14,7 +14,7 @@ public class InvestProfe extends Carta {
     }
     
     public InvestProfe() {
-    super("InvestProfe", TipoCarta.ENTRENADOR);
+    super("InvestigacionDelProfesor", TipoCarta.ENTRENADOR);
     this.isSupport = true;
     this.isActivated = false;
 }
