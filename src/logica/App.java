@@ -105,6 +105,8 @@ public static void main(String [] args)throws Exception{
         CrearManoInicial(mazo2);
         mostrarMano(jugador1);
         mostrarMano(jugador2);
+        colocarPokemonInicial(jugador1, scanner);
+colocarPokemonInicial(jugador2, scanner);
         
         int turno = 0;
 do {
@@ -124,6 +126,13 @@ do {
 
     System.out.println("TU CAMPO: (" + actual.getNombre() + ")");
     mostrarDatos(actual);
+    int accion;
+do {
+    accion = mostrarAcciones(scanner);
+    if (accion == 6) {
+        System.out.println("Pasas el turno.");
+    }
+} while (accion != 5 && accion != 6);
 
     turno++;
 } while (jugador1.getMazo().size() > 0 && jugador2.getMazo().size() > 0
@@ -210,26 +219,132 @@ public static void mostrarBanco(Jugador jugador) {
         }
     }
 }
-public static int mostrarAcciones(){
-    System.out.println("Acciones disponibles:");
-    System.out.println("1.Adjuntar energía de zona");
-    System.out.println("2.Jugar carta de entrenador");
-    System.out.println("3.Colocar Pokémon en banco");
-    System.out.println("4. Retirar Pokémon activo") ;
-    System.out.println("5. Atacar");
-    System.out.println("6. Pasar turno");
-    System.out.println("Ingrese el número de la acción que desea realizar:");
-    Scanner scanner = new Scanner(System.in);
-    int accion = scanner.nextInt();
-    if (accion < 1 || accion > 6) {
-        System.out.println("Acción inválida. Por favor, ingrese un número del 1 al 6.");
-        return mostrarAcciones(); 
-
-    }
-    
+public static int mostrarAcciones(Scanner scanner) {
+    int accion;
+    do {
+        System.out.println("¿Qué deseas hacer?");
+        System.out.println("1. Adjuntar energía de zona");
+        System.out.println("2. Jugar carta de entrenador");
+        System.out.println("3. Colocar Pokémon en banco");
+        System.out.println("4. Retirar Pokémon activo");
+        System.out.println("5. Atacar");
+        System.out.println("6. Pasar turno");
+        System.out.println("Ingrese el número de la acción que desea realizar:");
+        accion = scanner.nextInt();
+        if (accion < 1 || accion > 6) {
+            System.out.println("Acción inválida. Por favor, ingrese un número del 1 al 6.");
+        }
+    } while (accion < 1 || accion > 6);
     return accion;
 }
+public static Pokemon elegirPokemonDeMano(Jugador jugador, Scanner scanner) {
+    ArrayList<Integer> posiciones = new ArrayList<>();
+    for (int i = 0; i < jugador.getMano().size(); i++) {
+        Carta c = jugador.getMano().get(i);
+        if (c.getTipoCarta() == TipoCarta.POKEMON) {
+            posiciones.add(i);
+            System.out.println(posiciones.size() + ". " + c.getNombreCarta());
+        }
+    }
+    if (posiciones.isEmpty()) {
+        System.out.println("No tienes Pokémon en la mano.");
+        return null;
+    }
+    System.out.println("Elige el Pokémon:");
+    int opcion = scanner.nextInt();
+    if (opcion < 1 || opcion > posiciones.size()) {
+        System.out.println("Opción inválida.");
+        return null;
+    }
+    int indiceEnMano = posiciones.get(opcion - 1);
+    Pokemon elegido = (Pokemon) jugador.getMano().get(indiceEnMano);
+    jugador.getMano().remove(indiceEnMano);
+    return elegido;
+}
+
+
+public static void colocarPokemonBanco(Jugador jugador, Scanner scanner) {
+    int espacio = -1;
+    for (int i = 0; i < jugador.getBanco().length; i++) {
+        if (jugador.getBanco()[i] == null) {
+            espacio = i;
+            break;
+        }
+    }
+    if (espacio == -1) {
+        System.out.println("El banco está lleno.");
+        return;
+    }
+    Pokemon elegido = elegirPokemonDeMano(jugador, scanner);
+    if (elegido != null) {
+        jugador.getBanco()[espacio] = elegido;
+        System.out.println(elegido.getNombreCarta() + " fue colocado en el banco.");
+    }
+}
+
+public static void colocarPokemonInicial(Jugador jugador, Scanner scanner) {
+    System.out.println(jugador.getNombre() + ", elige tu Pokémon activo:");
+    Pokemon elegido = null;
+    while (elegido == null) {
+        elegido = elegirPokemonDeMano(jugador, scanner);
+    }
+    jugador.setPokemonActivo(elegido);
+    System.out.println(elegido.getNombreCarta() + " es tu Pokémon activo.");
+
+    for (int i = 0; i < jugador.getBanco().length; i++) {
+        System.out.println("¿Quieres colocar un Pokémon en el banco? (1 = sí, 2 = no)");
+        if (scanner.nextInt() != 1) {
+            break;
+        }
+        colocarPokemonBanco(jugador, scanner);
+    }
+}
+public static void retirarPokemonActivo(Jugador jugador, Scanner scanner) {
+    Pokemon activo = jugador.getPokemonActivo();
+    if (activo == null) {
+        System.out.println("No tienes Pokémon activo.");
+        return;
+    }
+
+    // 1. Revisar que haya alguien en el banco
+    boolean hayBanco = false;
+    for (int i = 0; i < jugador.getBanco().length; i++) {
+        if (jugador.getBanco()[i] != null) {
+            hayBanco = true;
+        }
+    }
+    if (!hayBanco) {
+        System.out.println("No tienes Pokémon en el banco para reemplazarlo.");
+        return;
+    }
+
+    int costo = activo.getCostoRetirada();
+    if (activo.getEnergiaAcumulada() < costo) {
+        System.out.println("No tienes energía suficiente. Costo de retirada: " + costo);
+        return;
+    }
+
+
+    System.out.println("Elige el Pokémon del banco que pasará a activo:");
+    for (int i = 0; i < jugador.getBanco().length; i++) {
+        if (jugador.getBanco()[i] != null) {
+            System.out.println((i + 1) + ". " + jugador.getBanco()[i].getNombreCarta());
+        }
+    }
+    int opcion = scanner.nextInt();
+    if (opcion < 1 || opcion > jugador.getBanco().length || jugador.getBanco()[opcion - 1] == null) {
+        System.out.println("Opción inválida.");
+        return;
+    }
+
+    activo.setEnergiaAcumulada(activo.getEnergiaAcumulada() - costo);
+    Pokemon nuevo = jugador.getBanco()[opcion - 1];
+    jugador.getBanco()[opcion - 1] = activo;
+    jugador.setPokemonActivo(nuevo);
+    System.out.println(nuevo.getNombreCarta() + " es ahora tu Pokémon activo.");
+}
 /* 
+
 
 
     
