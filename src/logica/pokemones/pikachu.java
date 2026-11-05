@@ -3,12 +3,23 @@ import logica.Pokemon;
 import logica.TipoPokemon;
 
 public class pikachu extends Pokemon {
-    public pikachu(TipoPokemon tipo, int ps, int costoDeRetirada, boolean isX) {        
-    }
+    public pikachu() {super(20, TipoPokemon.ELECTRICO, 60, 2, false);}
     @Override
-    public void atacar(Pokemon objetivo, TipoPokemon tipoAtaque, int danio,int costeDeEnergia) {
-        
+    public void atacar(Pokemon objetivo){
+        int e=this.getEnergiaAcumulada();
+        if(e>=2) {
+            if (objetivo.getTipoP()==TipoPokemon.AGUA) {
+                objetivo.setPs(objetivo.getPs()-(danioBase+20));
+            }
+            else {
+                objetivo.setPs(objetivo.getPs()-danioBase);
+            }
+
+
+        }
+        System.out.println();
     }
+
 
   
 
