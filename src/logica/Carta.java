@@ -1,6 +1,11 @@
 package logica;
 
 public abstract class Carta {
+    
+    public Carta(String nombre, TipoCarta tipoCarta) {
+        this.nombre = nombre;
+        this.tipoCarta = tipoCarta;
+    }
     protected String nombre;
     protected TipoCarta tipoCarta;
     public String getNombreCarta() {
