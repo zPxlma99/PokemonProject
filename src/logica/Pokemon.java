@@ -3,31 +3,22 @@ package logica;
 
 public abstract class Pokemon extends Carta{
 //constructor
-
     public Pokemon(String nombre, TipoCarta tipoCarta, int danioBase, TipoPokemon tipo, int ps, boolean isEX, boolean isActive) 
-
     {
     super(nombre, tipoCarta);{
         this.danioBase = danioBase;
         this.tipo = tipo;
         this.ps = ps;
-
         this.isEX = isEX;
         this.isActive = isActive;
-
-        this.costoDeRetirada = 1;
-        this.isEX = isEX;
-
     }
 }
+
 
 //atributo
     protected int danioBase=10;
     protected  TipoPokemon tipo;
     protected  int ps;
-
-    protected int costoDeRetirada;
-
     protected boolean isEX;
     protected int EnergiaAcumulada;
     protected boolean isActive;
@@ -73,13 +64,6 @@ public abstract class Pokemon extends Carta{
         this.ps = ps;
     }
 
-    public int getCostoDeRetirada() {
-        return costoDeRetirada;
-    }
-    public void setCostoDeRetirada(int costoDeRetirada) {
-        this.costoDeRetirada = costoDeRetirada;
-    }
-
     public boolean isEX() {
         return isEX;
     }
@@ -87,15 +71,16 @@ public abstract class Pokemon extends Carta{
         this.isEX = isEX;
     }
 
-
+//--------
+//metodo abstrato
 
     public abstract void atacar(Pokemon objetivo);
 
-
-
+//METODO RETIRADA
     
     public boolean PuedeRetirada(){
         if(this.isEX()){
+
             if(this.getEnergiaAcumulada()>=(this.turboVelocidadUsada? 2 : 3)){
                 this.setEnergiaAcumulada(this.getEnergiaAcumulada()-(this.turboVelocidadUsada? 2 : 3));
                 return true;
@@ -112,24 +97,6 @@ public abstract class Pokemon extends Carta{
         }
     }
 
-    public boolean retirada(){
-        if(this.isEX()){
-            if(this.getEnergiaAcumulada()>=(this.getCostoDeRetirada()*2)){
-                this.setEnergiaAcumulada(this.getEnergiaAcumulada()-this.getCostoDeRetirada());
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            if(this.getEnergiaAcumulada()>=this.getCostoDeRetirada()){
-                this.setEnergiaAcumulada(this.getEnergiaAcumulada()-this.getCostoDeRetirada());
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
-
 public Pokemon retirar(Jugador jugador,int opc,Pokemon pokemon){
    
     Pokemon nuevoActivo =jugador.getBanco()[opc - 1];
@@ -139,3 +106,4 @@ public Pokemon retirar(Jugador jugador,int opc,Pokemon pokemon){
     return nuevoActivo ;
 }
 }
+

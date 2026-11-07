@@ -12,18 +12,15 @@ public abstract class CartaEntrenador extends Carta {
         super(nombre, TipoCarta.ENTRENADOR);
     }
 
-    public void setActivated(boolean isActivated) {
-        this.isActivated = isActivated;
-    }
+    public void setActivated(boolean isActivated) { this.isActivated = isActivated; }
+    public boolean isActivated() { return isActivated; }
+    public boolean isSupport() { return isSupport; }
 
-    public boolean isActivated() {
-        return isActivated;
-    }
-
-    public boolean isSupport() {
-        return isSupport;
-    }
     
-    public abstract void ActivarCarta(Jugador jugador,Pokemon pokemon);
+    public boolean requiereObjetivo() { return false; }
 
+    
+    public String getAvisoObjetivo() { return ""; }
+
+    public abstract boolean ActivarCarta(Jugador jugador, Pokemon objetivo);
 }

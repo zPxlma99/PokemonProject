@@ -32,9 +32,15 @@ public class Jugador {
     public Pokemon getPokemonActivo() {
         return pokemonActivo;
     }
-    public void setPokemonActivo(Pokemon pokemonActivo) {
-        this.pokemonActivo = pokemonActivo;
+  public void setPokemonActivo(Pokemon nuevo) {
+    if (this.pokemonActivo != null) {
+        this.pokemonActivo.setActive(false);
     }
+    this.pokemonActivo = nuevo;
+    if (nuevo != null) {
+        nuevo.setActive(true);
+    }
+}
     
     public String getNombre() {
         return nombre;
