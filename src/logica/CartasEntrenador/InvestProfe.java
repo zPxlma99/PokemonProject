@@ -1,6 +1,10 @@
 package logica.CartasEntrenador;
+
+import java.util.Random;
+
 import logica.Carta;
 import logica.TipoCarta;
+import logica.Jugador;
 
 public class InvestProfe extends Carta {
     private boolean isSupport = true;
@@ -8,17 +12,21 @@ public class InvestProfe extends Carta {
     public boolean isSupport() {
         return isSupport;
     }
-    public InvestProfe(boolean isSupport, boolean isActivated) {
-        super("Invest Profe", TipoCarta.ENTRENADOR);
-        this.isSupport = isSupport;
-        this.isActivated = isActivated;
-
-    }
-    public void ActivarCarta() {
+    
+    public InvestProfe() {
+    super("InvestigacionDelProfesor", TipoCarta.ENTRENADOR);
+    this.isSupport = true;
+    this.isActivated = false;
+}
+    public void ActivarCarta(Jugador jugador) {
         this.isActivated = true;
-        //por implementar la logica de la carta
+        jugador.getMano().clear();                   
+        for (int i = 0; i < 2 && !jugador.getMazo().isEmpty(); i++) {
+        Carta robada = jugador.getMazo().remove(0);  
+        jugador.getMano().add(robada);              
     }
+}
+    
+}
         
 
-
-}
