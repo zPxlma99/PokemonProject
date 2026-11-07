@@ -1,19 +1,27 @@
 package logica.CartasEntrenador;
-import logica.TipoCarta;
-import logica.Carta;
-import logica.Pokemon;
+import logica.pokemones.Pokemon;
+import logica.Jugador;
 
 
-public class Pocion extends Carta {
+public class Pocion extends CartaEntrenador {
 
-    public Pocion() {super("Pocion", TipoCarta.ENTRENADOR);
+    public Pocion() {
+        super("Pocion");
+        this.isSupport = false;
     }
-    public void usar(Pokemon objetivo, String nombrePokemon){
-    int newps=objetivo.getPs()+20;
-    objetivo.setPs(newps);
-    System.out.println("Se ha usado una pocion en "+nombrePokemon+" y ahora tiene "+
-    objetivo.getPs()+" puntos de salud");
-    }
-    
 
+    @Override
+    public boolean requiereObjetivo() { return true; }
+
+    @Override
+    public boolean ActivarCarta(Jugador jugador, Pokemon objetivo) {
+        if (objetivo == null) {
+            return false;
+        }
+        objetivo.setPs(objetivo.getPs() + 20);
+        this.isActivated = true;
+        System.out.println("Se ha usado una poción en " + objetivo.getNombreCarta()
+                + " y ahora tiene " + objetivo.getPs() + " puntos de salud");
+        return true;
+    }
 }

@@ -1,9 +1,13 @@
-package logica;
+package logica.pokemones;
 
+import logica.Carta;
+import logica.Jugador;
+import logica.TipoCarta;
+import logica.TipoPokemon;
 
 public abstract class Pokemon extends Carta{
 //constructor
-    public Pokemon(String nombre, TipoCarta tipoCarta, int danioBase, TipoPokemon tipo, int ps, boolean isEX, boolean isActive) 
+    public Pokemon(String nombre, TipoCarta tipoCarta, int danioBase, TipoPokemon tipo, int ps, boolean isEX, boolean isActive, int energiaMin) 
     {
     super(nombre, tipoCarta);{
         this.danioBase = danioBase;
@@ -11,8 +15,10 @@ public abstract class Pokemon extends Carta{
         this.ps = ps;
         this.isEX = isEX;
         this.isActive = isActive;
+        this.energiaMin = energiaMin;
     }
 }
+
 
 //atributo
     protected int danioBase=10;
@@ -22,6 +28,19 @@ public abstract class Pokemon extends Carta{
     protected int EnergiaAcumulada;
     protected boolean isActive;
     protected boolean turboVelocidadUsada=false;
+    public String ataque1;
+    public String ataque2;
+    public int energiaMin;
+
+    public int getEnergiaMin() {
+        return energiaMin;
+    }
+    public String getAtaque1() {
+        return ataque1;
+    }
+    public String getAtaque2() {
+        return ataque2;
+    }
 
     public boolean isTurboVelocidadUsada() {
         return turboVelocidadUsada;
@@ -74,10 +93,11 @@ public abstract class Pokemon extends Carta{
 //metodo abstrato
 
     public abstract void atacar(Pokemon objetivo);
+    public abstract void atacar2(Pokemon objetivo);
 
 //METODO RETIRADA
     
-    public boolean retirada(){
+    public boolean PuedeRetirada(){
         if(this.isEX()){
 
             if(this.getEnergiaAcumulada()>=(this.turboVelocidadUsada? 2 : 3)){
@@ -96,5 +116,12 @@ public abstract class Pokemon extends Carta{
         }
     }
 
-
+public Pokemon retirar(Jugador jugador,int opc,Pokemon pokemon){
+    Pokemon nuevoActivo = jugador.getBanco()[opc - 1];
+    jugador.setBanco(null, opc-1);
+    jugador.setBanco(pokemon, opc-1);
+    
+    return nuevoActivo ;
 }
+}
+
