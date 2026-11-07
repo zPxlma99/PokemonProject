@@ -7,8 +7,6 @@ import java.util.Scanner;
 public class Juego {
 
     //FALTA HACER LA LOGICA DE ATAQUE, DE FINAL DE COMBATE Y VICTORIA AL LLEGAR A 3 PUNTOS
-    // Límite de turnos de prueba (antes era "turno < 6" dentro del while).
-    // Mientras el ataque no esté implementado nadie puede ganar puntos.
     private static final int MAX_TURNOS = 6;
 
 public static int valorRandom( ArrayList<Carta> mazo){
@@ -64,8 +62,7 @@ public static Pokemon elegirPokemonEnJuego(Jugador jugador, Scanner scanner) {
     return opciones.get(opcion - 1);
 }
 
-/////////////////////////////////////////////////
-// Lo que antes era el main de App
+
 
 public void iniciar() {
     
@@ -126,7 +123,7 @@ do {
     mostrarDatos(actual);
     System.out.println("--------------------------------------------------");
 
-    // CAMBIO: el turno termina con una bandera, no comparando el número de la acción
+    
     int accion = 0;
     do {
         accion = mostrarAcciones(scanner);
@@ -163,7 +160,7 @@ do {
         }
     } while (accion != 5 && accion != 6);
 
-    // CAMBIO: Turbo Velocidad dura solo el turno en que se usó
+
     resetearTurbo(actual);
 
     turno++;

@@ -4,8 +4,8 @@ import logica.Pokemon;
 import logica.TipoPokemon;
 import logica.TipoCarta;
 
-public class PokPikachu extends Pokemon {
-    public PokPikachu() {super("Pikachu", TipoCarta.POKEMON, 20, TipoPokemon.ELECTRICO, 60,  false, false);}
+public class pikachu extends Pokemon {
+    public pikachu() {super("Pikachu", TipoCarta.POKEMON, 20, TipoPokemon.ELECTRICO, 60,  false, false);}
     
     @Override
     public void atacar(Pokemon objetivo){

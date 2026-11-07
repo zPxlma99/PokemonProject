@@ -34,7 +34,7 @@ public static ArrayList<Carta> mazo2() {
     ArrayList<Carta> mazo = new ArrayList<>();
     agregar(mazo, Moltres::new, 2);
     agregar(mazo, Charmander::new, 2);
-    agregar(mazo, PokPikachu::new, 2);
+    agregar(mazo, pikachu::new, 2);
     agregar(mazo, Squirtle::new, 2);
     agregar(mazo, Zapdos::new, 2);
     agregar(mazo, Snorlax::new, 2);
@@ -49,7 +49,7 @@ public static ArrayList<Carta> mazo3() {
     ArrayList<Carta> mazo = new ArrayList<>();
     agregar(mazo, Zapdos::new, 1);
     agregar(mazo, Mewtwo::new, 1);
-    agregar(mazo, PokPikachu::new, 2);
+    agregar(mazo, pikachu::new, 2);
     agregar(mazo, Charmander::new, 2);
     agregar(mazo, Magikarp::new, 2);
     agregar(mazo, Jigglypuff::new, 2);
