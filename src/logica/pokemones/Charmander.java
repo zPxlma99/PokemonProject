@@ -5,7 +5,11 @@ import logica.TipoCarta;
 
 public class Charmander extends Pokemon {
     public Charmander() 
-    {super("Charmander", TipoCarta.POKEMON, 30, TipoPokemon.FUEGO, 60, 2, false);};
+
+    {super("Charmander", TipoCarta.POKEMON, 30, TipoPokemon.FUEGO, 60, false, false);};
+
+    
+
     
     @Override
     public void atacar(Pokemon objetivo){
