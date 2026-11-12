@@ -23,11 +23,11 @@ public class Articuno extends Pokemon {
         if(e>=1) {
             if (objetivo.getTipoP()==TipoPokemon.FUEGO) {
                 objetivo.setPs(objetivo.getPs()-(danioBase+20));
-                System.out.println("Ataque" + ataque1 + "realizado con exito");
+                System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ danioBase+20+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+objetivo.getPs());
             }
             else {
                 objetivo.setPs(objetivo.getPs()-danioBase);
-                System.out.println("Ataque" + ataque1 + "realizado con exito");
+                System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ danioBase+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+objetivo.getPs());
             }
         }else{
             System.out.println("No tiene suficiente energia para atacar");
@@ -39,17 +39,14 @@ public class Articuno extends Pokemon {
         if(e>=3) {
             if (objetivo.getTipoP()==TipoPokemon.FUEGO) {
                 objetivo.setPs(objetivo.getPs()-((100)+20));
-                System.out.println("Ataque" + ataque2 + "realizado con exito");
-            }
-            else {
+                System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ ((100)+20)+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+objetivo.getPs());
+            }else {
                 objetivo.setPs(objetivo.getPs()-(100));
-                System.out.println("Ataque " + ataque2 + " realizado con exito");
+                System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ (100)+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+objetivo.getPs());
             }
         }else{
             System.out.println("No tiene suficiente energia para atacar");
             return;
         }
-    
-}
-
+    }
 }

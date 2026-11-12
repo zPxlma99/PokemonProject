@@ -24,7 +24,7 @@ public class Moltres extends Pokemon {
         int e=this.getEnergiaAcumulada();
         if(e>=1) {
                 objetivo.setPs(objetivo.getPs()-danioBase);
-                System.out.println("Ataque" + ataque1 + "realizado con exito");
+                System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ (danioBase)+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+objetivo.getPs());
         }else{
             System.out.println("No tiene suficiente energia para atacar");
             return;
@@ -35,11 +35,11 @@ public class Moltres extends Pokemon {
         if(e>=3) {
             if (objetivo.getTipoP()==TipoPokemon.AGUA) {
                 objetivo.setPs(objetivo.getPs()-((70)+20));
-                System.out.println("Ataque" + ataque2 + "realizado con exito"); 
+                System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ ((70)+20)+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+objetivo.getPs());
             }
             else {
                 objetivo.setPs(objetivo.getPs()-(70));
-                System.out.println("Ataque" + ataque2 + "realizado con exito");
+                System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ (70)+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+objetivo.getPs());
             }
         }else{
             System.out.println("No tiene suficiente energia para atacar");

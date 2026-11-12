@@ -1,9 +1,11 @@
 package logica;
 import java.util.ArrayList;
-
 import logica.pokemones.Pokemon;
+import logica.Carta;
+
 
 public class Jugador {
+
     private String nombre;
     private int puntos;
     private ArrayList<Carta> mazo = new ArrayList<>();
@@ -68,6 +70,4 @@ public class Jugador {
     public void setMano(ArrayList<Carta> mano) {
         this.mano = mano;
     }
-
-    
 }

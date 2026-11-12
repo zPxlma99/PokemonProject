@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.function.Supplier;
 import logica.CartasEntrenador.*;
 import logica.pokemones.*;
+import logica.Carta;
 
 
 public class CreadorMazosPDefecto {

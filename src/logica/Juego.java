@@ -3,10 +3,39 @@ import java.util.ArrayList;
 import java.util.Random;
 import logica.CartasEntrenador.*;
 import logica.pokemones.Pokemon;
+import logica.Carta;
 
 import java.util.Scanner;
 
 public class Juego {
+
+public void VerificarGanador(Jugador jugador1, Jugador jugador2) {
+    if (jugador1.getPuntos() >= 3) {
+        System.out.println(jugador1.getNombre() + " gana el juego con " + jugador1.getPuntos() + " puntos.");
+    } else if (jugador2.getPuntos() >= 3) {
+        System.out.println(jugador2.getNombre() + " gana el juego con " + jugador2.getPuntos() + " puntos.");
+    }
+}
+
+
+public void VerificarPuntos(Jugador atacante, Jugador defensor) {
+    Pokemon pokemonDefensor = defensor.getPokemonActivo();
+    if (pokemonDefensor != null && pokemonDefensor.getPs() <= 0) {
+        System.out.println(pokemonDefensor.getNombreCarta() + " ha sido derrotado.");
+        if (pokemonDefensor.isEX()) {
+            atacante.setPuntos(atacante.getPuntos() + 2);
+            System.out.println(atacante.getNombre() + " gana 2 puntos de premio por derrotar a un Pokémon EX.");
+        } else {
+            atacante.setPuntos(atacante.getPuntos() + 1);
+            System.out.println(atacante.getNombre() + " gana 1 punto de premio por derrotar a un Pokémon básico.");
+        }
+        // Retirar el Pokémon derrotado del juego
+        defensor.setPokemonActivo(null);
+        elegirPokemonEnJuego(defensor, new Scanner(System.in));
+    } 
+
+
+}
 
     public void atacar(Jugador atacante, Jugador defensor, Scanner scanner) {
         Pokemon pokemonAtacante = atacante.getPokemonActivo();
@@ -21,6 +50,7 @@ public class Juego {
             System.out.println("El jugador defensor no tiene un Pokémon activo.");
             return;
         }
+
         // verificar si el pokemon atacante es EX para desplegar el menu de 2 ataques y sino 1 solo ataque
         if (pokemonAtacante.isEX()){
             int opcion;
@@ -30,25 +60,22 @@ public class Juego {
             switch (opcion) {
                 case 1:
                     pokemonAtacante.atacar(pokemonDefensor);
+                    //////////////////////////////
                     break;
                 case 2:
                     pokemonAtacante.atacar2(pokemonDefensor);
+                    ////////////////////////////
                     break;
                 default:
                     System.out.println("Opción inválida. Por favor, ingrese 1 o 2.");
             }}while (opcion != 1 && opcion != 2);
         }else{
             pokemonAtacante.atacar(pokemonDefensor);
-            
+            /////////////////
         }
+
         
     }
-
-    //FALTA HACER LA LOGICA DE ATAQUE, DE FINAL DE COMBATE Y VICTORIA AL LLEGAR A 3 PUNTOS
-    // Límite de turnos de prueba (antes era "turno < 6" dentro del while).
-    // Mientras el ataque no esté implementado nadie puede ganar puntos.
-
-private static final int MAX_TURNOS = 6;
 
 public static int valorRandom( ArrayList<Carta> mazo){
     Random rand = new Random(); 
@@ -103,8 +130,6 @@ public static Pokemon elegirPokemonEnJuego(Jugador jugador, Scanner scanner) {
     return opciones.get(opcion - 1);
 }
 
-/////////////////////////////////////////////////
-// Lo que antes era el main de App
 
 public void iniciar() {
     
@@ -141,6 +166,7 @@ do {
 
     Jugador actual = (turno % 2 == 0) ? jugador1 : jugador2;
     Jugador rival = (turno % 2 == 0) ? jugador2 : jugador1;
+
     if (turno >= 2) {
         // CAMBIO: se valida que el mazo no esté vacío antes de robar
         if (!actual.getMazo().isEmpty()) {
@@ -165,7 +191,6 @@ do {
     mostrarDatos(actual);
     System.out.println("--------------------------------------------------");
 
-    // CAMBIO: el turno termina con una bandera, no comparando el número de la acción
     int accion = 0;
     do {
         accion = mostrarAcciones(scanner);
@@ -191,6 +216,7 @@ do {
                     accion = 0; // No termina el turno, permite elegir otra acción
                 }else{
                     atacar(actual, rival, scanner);
+                    VerificarGanador(actual, rival);
                 }
                 break;
             case 6:
@@ -204,12 +230,11 @@ do {
         }
     } while (accion != 5 && accion != 6);
 
-    // CAMBIO: Turbo Velocidad dura solo el turno en que se usó
     resetearTurbo(actual);
 
     turno++;
 } while (jugador1.getMazo().size() > 0 && jugador2.getMazo().size() > 0
-        && jugador1.getPuntos() < 3 && jugador2.getPuntos() < 3 && turno < MAX_TURNOS);
+        && jugador1.getPuntos() < 3 && jugador2.getPuntos() < 3);
 }
 
 // CAMBIO (nuevo): apaga la marca de Turbo Velocidad en el activo y el banco
@@ -534,6 +559,4 @@ public static void adjuntarEnergia(Jugador jugador, Scanner scanner) {
     jugador.setEnergy(0);
     System.out.println("Energía adjuntada a " + destino.getNombreCarta() + ". Energía acumulada: " + destino.getEnergiaAcumulada());
 }
-
 }
-
