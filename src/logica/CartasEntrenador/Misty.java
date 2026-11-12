@@ -1,45 +1,30 @@
 package logica.CartasEntrenador;
-import logica.Carta;
-import logica.TipoCarta;
-import logica.Pokemon;
 import logica.TipoPokemon;
+import logica.pokemones.Pokemon;
+import logica.Jugador;
 
-public class Misty extends Carta {
-    private boolean isSupport = true;
-    private boolean isActivated;
-    
-    public Misty() {super("Misty", TipoCarta.ENTRENADOR);
-    }
-    public void setActivated(boolean isActivated) {
-        this.isActivated = isActivated;
+public class Misty extends CartaEntrenador {
+
+    public Misty() {
+        super("Misty");
     }
 
-    public boolean isActivated() {
-        return isActivated;
-    }
+    @Override
+    public boolean requiereObjetivo() { return true; }
 
-    public boolean isSupport() {
-        return isSupport;
-    }
+    @Override
+    public String getAvisoObjetivo() { return "(SOLO POKEMONES DE AGUA)"; }
 
-    public Misty(boolean isSupport, boolean isActivated) {
-        super("Misty", TipoCarta.ENTRENADOR);
-        this.isSupport = isSupport;
-        this.isActivated = isActivated;
-    }
-
-    public void use(Pokemon objetivo, String nombrePokemon) {
-        //VALIDAR SI HAY UN PROFESOR ACTIVO EN EL MISMO TURNO QUE SE INVOCA LA MISMA.
-            if (objetivo.getTipoP() == TipoPokemon.AGUA) {
-                this.isActivated = true;
-                int newEnergia = objetivo.getEnergiaAcumulada() + 3;
-                objetivo.setEnergiaAcumulada(newEnergia);
-                System.out.println("Se ha usado la carta Misty en " + nombrePokemon + " y ahora tiene " +
-                        objetivo.getEnergiaAcumulada() + " puntos de energía acumulada.");
-            } else {
-                System.out.println("Tú pokemon no es de tipo Agua, por lo que no se puede usar la carta Misty en él.");
-            }
-
-        
+    @Override
+    public boolean ActivarCarta(Jugador jugador, Pokemon objetivo) {
+        if (objetivo == null || objetivo.getTipoP() != TipoPokemon.AGUA) {
+            System.out.println("Tu Pokémon no es de tipo Agua, por lo que no se puede usar Misty en él.");
+            return false;
+        }
+        this.isActivated = true;
+        objetivo.setEnergiaAcumulada(objetivo.getEnergiaAcumulada() + 3);
+        System.out.println("Se ha usado Misty en " + objetivo.getNombreCarta() + " y ahora tiene "
+                + objetivo.getEnergiaAcumulada() + " puntos de energía acumulada.");
+        return true;
     }
 }
