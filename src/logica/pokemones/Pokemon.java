@@ -7,7 +7,7 @@ import logica.TipoPokemon;
 
 public abstract class Pokemon extends Carta{
 //constructor
-    public Pokemon(String nombre, TipoCarta tipoCarta, int danioBase, TipoPokemon tipo, int ps, boolean isEX, boolean isActive, int energiaMin) 
+    public Pokemon(String nombre, TipoCarta tipoCarta, int danioBase, TipoPokemon tipo, int ps, boolean isEX, boolean isActive, int energiaMin, int costoEnergiaAtaque2) 
     {
     super(nombre, tipoCarta);{
         this.danioBase = danioBase;
@@ -16,6 +16,7 @@ public abstract class Pokemon extends Carta{
         this.isEX = isEX;
         this.isActive = isActive;
         this.energiaMin = energiaMin;
+        this.costoEnergiaAtaque2 = costoEnergiaAtaque2;
     }
 }
 
@@ -31,6 +32,12 @@ public abstract class Pokemon extends Carta{
     public String ataque1;
     public String ataque2;
     public int energiaMin;
+    public int costoEnergiaAtaque2;
+
+    public int getCostoEnergiaAtaque2() {
+        return costoEnergiaAtaque2;
+    }
+
 
     public int getEnergiaMin() {
         return energiaMin;

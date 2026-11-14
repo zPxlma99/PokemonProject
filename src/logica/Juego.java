@@ -55,7 +55,7 @@ public void VerificarPuntos(Jugador atacante, Jugador defensor) {
         if (pokemonAtacante.isEX()){
             int opcion;
         do{
-            System.out.println("Que ataque deseas usar?\n 1. "+pokemonAtacante.getAtaque1()+"\n 2. "+pokemonAtacante.getAtaque2());
+            System.out.println("Que ataque deseas usar?\n 1." +pokemonAtacante.getAtaque1() + (pokemonAtacante.getCostoEnergiaAtaque2() <= pokemonAtacante.getEnergiaAcumulada() ? "\n 2. "+pokemonAtacante.getAtaque2() : ""));
             opcion = scanner.nextInt();
             switch (opcion) {
                 case 1:
@@ -168,7 +168,7 @@ do {
     Jugador rival = (turno % 2 == 0) ? jugador2 : jugador1;
 
     if (turno >= 2) {
-        // CAMBIO: se valida que el mazo no esté vacío antes de robar
+        // se valida que el mazo no esté vacío antes de robar
         if (!actual.getMazo().isEmpty()) {
             actual.getMano().add(actual.getMazo().remove(0));
             System.out.println(actual.getNombre() + " ha robado una carta: " + actual.getMano().get(actual.getMano().size() - 1).getNombreCarta());
@@ -183,6 +183,11 @@ do {
     if (actual.getEnergy() < 1) {
         actual.setEnergy(1);
     }
+    if (actual.getPokemonActivo() == null && turno >= 2 && actual.getBanco()[0] == null && actual.getBanco()[1] == null) {
+        Pokemon nuevoActivo = actual.getBanco()[0] != null ? actual.getBanco()[0]: actual.getBanco()[1];
+        actual.setPokemonActivo(nuevoActivo);
+        
+    }
 
     System.out.println("RIVAL: (" + rival.getNombre() + ")");
     mostrarDatos(rival);
@@ -193,6 +198,9 @@ do {
 
     int accion = 0;
     do {
+        if (actual.getPokemonActivo() == null) {
+          ReemplazarPokemonActivoConBanco(actual);
+        }
         accion = mostrarAcciones(scanner);
         switch (accion) {
             case 1:
@@ -216,6 +224,7 @@ do {
                     accion = 0; // No termina el turno, permite elegir otra acción
                 }else{
                     atacar(actual, rival, scanner);
+                    VerificarPuntos(actual, rival);
                     VerificarGanador(actual, rival);
                 }
                 break;
@@ -237,7 +246,7 @@ do {
         && jugador1.getPuntos() < 3 && jugador2.getPuntos() < 3);
 }
 
-// CAMBIO (nuevo): apaga la marca de Turbo Velocidad en el activo y el banco
+
 private static void resetearTurbo(Jugador jugador) {
     if (jugador.getPokemonActivo() != null) {
         jugador.getPokemonActivo().setTurboVelocidadUsada(false);
@@ -248,6 +257,19 @@ private static void resetearTurbo(Jugador jugador) {
         }
     }
 }
+public boolean ReemplazarPokemonActivoConBanco(Jugador actual) {
+    Pokemon nuevoActivo = actual.getBanco()[0] != null ? actual.getBanco()[0] : actual.getBanco()[1];
+if (nuevoActivo != null) {
+    int posicion = (nuevoActivo == actual.getBanco()[0]) ? 0 : 1;
+    actual.setBanco(null, posicion);
+    actual.setPokemonActivo(nuevoActivo);
+    System.out.println("se ha colocado como activo a: "+ nuevoActivo.getNombreCarta()+ " y se eliminó del banco");
+    return true;}
+    else {
+        System.out.println("No hay Pokémon en el banco para reemplazar al activo, coloque uno.");
+        return false;}
+    }
+
 
 
 ////////////////crea la mano inicial con al menos un pokemon//////////////////

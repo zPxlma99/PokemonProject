@@ -6,7 +6,7 @@ import logica.TipoCarta;
 public class Magikarp extends Pokemon {
     public Magikarp () {
         super("Magikarp", TipoCarta.POKEMON, 10, 
-        TipoPokemon.AGUA, 30, false, false,2);
+        TipoPokemon.AGUA, 30, false, false,2, 0);
     }
     private String ataque1 = "Golpe";
     public String getAtaque1() {
@@ -22,11 +22,13 @@ public class Magikarp extends Pokemon {
         if(e>=2) {
             if (objetivo.getTipoP()==TipoPokemon.FUEGO) {
                 objetivo.setPs(objetivo.getPs()-(danioBase+20));
-                System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ (danioBase+20)+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+objetivo.getPs());
+                 System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ (danioBase)+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+
+                (objetivo.getPs() > 0 ? objetivo.getPs(): 0) );
             }
             else {
                 objetivo.setPs(objetivo.getPs()-danioBase);
-                System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ (danioBase)+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+objetivo.getPs());
+                 System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ (danioBase)+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+
+                (objetivo.getPs() > 0 ? objetivo.getPs(): 0) );
             }
         }else {
             System.out.println("No tiene suficiente energia para atacar");

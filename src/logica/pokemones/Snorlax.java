@@ -6,7 +6,7 @@ import logica.TipoCarta;
 public class Snorlax extends Pokemon {
     public Snorlax () {
         super("Snorlax", TipoCarta.POKEMON, 100, 
-        TipoPokemon.INCOLORO, 150,  false, false,3);
+        TipoPokemon.INCOLORO, 150,  false, false,3, 0);
     }
 
     private String ataque1 = "Golpe Cuerpo";
@@ -23,7 +23,8 @@ public class Snorlax extends Pokemon {
         int e=this.getEnergiaAcumulada();
         if(e>=3) {
                 objetivo.setPs(objetivo.getPs()-danioBase);
-                System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ (danioBase)+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+objetivo.getPs());
+                System.out.println(this.getNombreCarta()+ " ataca\n"+"causa "+ (danioBase)+" de daño a "+objetivo.getNombreCarta()+"\nVida actual de "+objetivo.getNombreCarta()+" es "+
+                (objetivo.getPs() > 0 ? objetivo.getPs(): 0) );
             }else {
                 System.out.println("No tiene suficiente energia para atacar");
                 return;
