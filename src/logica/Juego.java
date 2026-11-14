@@ -183,9 +183,7 @@ do {
     if (actual.getEnergy() < 1) {
         actual.setEnergy(1);
     }
-    if (actual.getPokemonActivo() == null && turno >= 2 && actual.getBanco()[0] == null && actual.getBanco()[1] == null) {
-        Pokemon nuevoActivo = actual.getBanco()[0] != null ? actual.getBanco()[0]: actual.getBanco()[1];
-        actual.setPokemonActivo(nuevoActivo);
+ 
         
     }
 
