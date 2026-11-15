@@ -185,7 +185,7 @@ do {
     }
  
         
-    }
+    
 
     System.out.println("RIVAL: (" + rival.getNombre() + ")");
     mostrarDatos(rival);
